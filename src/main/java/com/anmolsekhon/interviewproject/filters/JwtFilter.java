@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * JWT Authorization Filter
+ */
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
@@ -27,15 +30,21 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        //    Get authorization header
         String authorization = request.getHeader("Authorization");
+
         String token = null;
         String username = null;
 
+        //  If 'Authorization' is not null and starts with 'Bearer '
+        //  then extract the token and username
         if (authorization != null && authorization.startsWith("Bearer ")) {
             token = authorization.substring("Bearer ".length());
             username = jwtUtility.getUsernameFromToken(token);
         }
 
+        // if username is not null and authentication is not set
+        // validate the token
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails
                     = userService.loadUserByUsername(username);
