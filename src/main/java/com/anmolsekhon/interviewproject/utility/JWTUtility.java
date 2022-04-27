@@ -16,6 +16,7 @@ import java.util.function.Function;
 @Component
 public class JWTUtility implements Serializable {
 
+    //    pulling up the secret key from application.properties
     @Value("${jwt.secret}")
     private String secretKey;
 
@@ -58,6 +59,7 @@ public class JWTUtility implements Serializable {
                 .setExpiration(new Date(System.currentTimeMillis() * 1000 * 60 * 10))
                 .signWith(SignatureAlgorithm.HS512, secretKey).compact();
     }
+
     //    function to validate the token
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);

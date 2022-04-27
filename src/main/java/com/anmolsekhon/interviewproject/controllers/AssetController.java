@@ -6,7 +6,6 @@ import com.anmolsekhon.interviewproject.domain.JwtResponse;
 import com.anmolsekhon.interviewproject.services.AssetService;
 import com.anmolsekhon.interviewproject.services.UserService;
 import com.anmolsekhon.interviewproject.utility.JWTUtility;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -52,8 +51,13 @@ public class AssetController {
         assetService.deleteAsset(assetId);
     }
 
+    /**
+     * a POST method with end point '/v1/asset/authenticate'
+     * this will take username and password from the user in 'application/json' format.
+     * It will try to authenticate the user and issue a JWT token if credentials match
+     */
     @PostMapping("authenticate")
-    public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception{
+    public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
 
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
