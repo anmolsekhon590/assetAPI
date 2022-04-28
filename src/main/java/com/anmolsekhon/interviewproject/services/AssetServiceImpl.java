@@ -46,7 +46,6 @@ public class AssetServiceImpl implements AssetService {
                             String name,
                             String description,
                             Double priceValue,
-                            LocalDate purchaseDate,
                             Long assetTypeId) {
 //         Checking if user with given ID exists
         Asset asset = assetRepo.findById(assetId)
@@ -65,19 +64,23 @@ public class AssetServiceImpl implements AssetService {
             asset.setDescription(description);
         }
 
-//        checking new priceValue is > 0 and not same as previous priceValue
-        if (priceValue > 0 && priceValue != asset.getPriceValue()) {
-            asset.setPriceValue(priceValue);
+//        checking new priceValue is not null, and it is > 0 and not same as previous priceValue
+        if (priceValue != null) {
+//            nested if condition, otherwise it will throw an exception if priceValue is null
+//            as we are comparing its value
+            if (priceValue > 0 && priceValue != asset.getPriceValue()) {
+                asset.setPriceValue(priceValue);
+            }
         }
 
-//        checking new Date is not null and not same as previous date
-        if (purchaseDate != null && !purchaseDate.isEqual(asset.getPurchaseDate())) {
-            asset.setPurchaseDate(purchaseDate);
-        }
 
-//        checking if assetTypeId is either 0 or 1 because there are only 2 types
-        if (assetTypeId == 0 || assetTypeId == 1) {
-            asset.setAssetId(assetTypeId);
+//        checking if assetTypeId is not null and is either 0 or 1 because there are only 2 types
+        if (assetTypeId != null) {
+//            nested if condition, otherwise it will throw an exception if assetTypeId is null
+//            as we are comparing its value
+            if (assetTypeId == 0 || assetTypeId == 1) {
+                asset.setAssetTypeId(assetTypeId);
+            }
         }
 
     }
