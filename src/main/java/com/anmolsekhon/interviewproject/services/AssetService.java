@@ -15,6 +15,6 @@ public interface AssetService {
     List<Asset> getAllAssets();
     void deleteAsset(Long assetId);
     void updateAsset(Long assetId, String name, String description, Double priceValue,
-                     LocalDate purchaseDate, Long assetTypeId);
+                      Long assetTypeId);
 }
 
