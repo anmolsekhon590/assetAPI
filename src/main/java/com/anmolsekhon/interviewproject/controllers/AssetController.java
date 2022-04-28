@@ -59,10 +59,9 @@ public class AssetController {
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) Double priceValue,
-            @RequestParam(required = false) LocalDate purchaseDate,
             @RequestParam(required = false) Long assetTypeId
     ) {
-        assetService.updateAsset(assetId, name, description, priceValue, purchaseDate, assetTypeId);
+        assetService.updateAsset(assetId, name, description, priceValue, assetTypeId);
     }
 
     /**
