@@ -2,7 +2,7 @@ package com.anmolsekhon.interviewproject.services;
 
 import com.anmolsekhon.interviewproject.domain.Asset;
 import com.anmolsekhon.interviewproject.repos.AssetRepo;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,31 +14,32 @@ import java.util.Objects;
  */
 
 @Service
+// Transactional annotation will sync changes with Database
 @Transactional
-@RequiredArgsConstructor
 public class AssetServiceImpl implements AssetService {
 
-    // try to add Dependency Injection
-    private final AssetRepo assetRepo;
+    @Autowired
+    private AssetRepo assetRepo;
 
-    // add exception handling
+//    Saves asset to the database
     @Override
     public Asset saveAsset(Asset asset) {
         return assetRepo.save(asset);
     }
 
-    // add exception handling
+//    fetches all assets from the database
     @Override
     public List<Asset> getAllAssets() {
         return assetRepo.findAll();
     }
 
-    // add exception handling
+//    deletes an asset from the database
     @Override
     public void deleteAsset(Long assetId) {
         assetRepo.deleteById(assetId);
     }
 
+//    Updates Asset. Contains logic to update asset in this method/function
     @Override
     public void updateAsset(Long assetId,
                             String name,
