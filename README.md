@@ -6,10 +6,16 @@ An API secured by JSON Web Tokens for asset management.
  - Service layer - contains all business logic
  - Database Layer - provides access to the database
 
+## Building
+You can generate a .jar file using maven wrapper included in the project. Run the following command in project root directory:
+```shell
+$ ./mvnw package
+```
+
 ## Docker
 This project contains a Dockerfile. Make sure to generate a target .jar first. You can build a docker image by running the following command:
 
-### Building
+### Building an Image
 ```shell
 $ docker build --tag assets_api . 
 ```
