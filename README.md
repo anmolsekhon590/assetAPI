@@ -7,7 +7,7 @@ An API secured by JSON Web Tokens for asset management.
  - Database Layer - provides access to the database
 
 ## Docker
-This project contains a Dockerfile. You can build a docker image by running the following command:
+This project contains a Dockerfile. Make sure to generate a target .jar first. You can build a docker image by running the following command:
 
 ### Building
 ```shell
