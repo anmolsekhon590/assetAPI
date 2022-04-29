@@ -14,6 +14,9 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 //        Hardcoded user
-        return new User("admin", "password", new ArrayList<>());
+        if (username.equals("admin"))
+            return new User("admin", "password", new ArrayList<>());
+        else
+            throw new UsernameNotFoundException("User with username " + username + " not found");
     }
 }
