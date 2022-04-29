@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * This class models a JWT Response - used to return a JWT to user
+ * */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

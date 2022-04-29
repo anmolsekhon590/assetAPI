@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+/**
+ * Service Layer - Contains business logic
+ * */
 @Service
 public class UserService implements UserDetailsService {
 

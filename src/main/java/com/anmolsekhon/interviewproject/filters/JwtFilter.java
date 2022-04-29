@@ -17,14 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * JWT Authorization Filter
+ * JWT Authorization Filter - handles token authorization
  */
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
+//    Annotation based dependency injection
     @Autowired
     private JWTUtility jwtUtility;
-
     @Autowired
     private UserService userService;
 

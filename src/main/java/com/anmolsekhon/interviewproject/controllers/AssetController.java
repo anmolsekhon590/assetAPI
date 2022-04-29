@@ -12,19 +12,18 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Controller Layer
+ * Controller Layer - contains all API endpoints (GET, POST, PUT, DELETE)
  */
 
-@CrossOrigin
+@CrossOrigin // Allow cross-origin requests
 @RestController
 @RequestMapping("v1/asset")
 public class AssetController {
 
+    //    Annotation Dependency Injection
     @Autowired
     private AssetService assetService;
     @Autowired
@@ -34,25 +33,26 @@ public class AssetController {
     @Autowired
     private JWTUtility jwtUtility;
 
-    //    Retrieve Operation
+    //    Retrieve Operation - will handle all GET Requests
     @GetMapping
     public List<Asset> getAllAssets() {
         return assetService.getAllAssets();
     }
 
-    //    Create Operation
+    //    Create Operation - will handle all POST Requests
     @PostMapping
     public void saveAsset(@RequestBody Asset asset) {
         assetService.saveAsset(asset);
     }
 
-    //    Delete Operation
+    //    Delete Operation - will handle all deletion requests
+    //    this method also requires an assetId in API url
     @DeleteMapping("{assetId}")
     public void deleteAsset(@PathVariable Long assetId) {
         assetService.deleteAsset(assetId);
     }
 
-    //    Update Operation
+    //    Update Operation - will handle all update requests
     @PutMapping("{assetId}")
     public void updateAsset(
             @PathVariable() Long assetId,
