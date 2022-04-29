@@ -2,17 +2,21 @@ package com.anmolsekhon.interviewproject.services;
 
 import com.anmolsekhon.interviewproject.domain.Asset;
 import com.anmolsekhon.interviewproject.repos.AssetRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Service Layer - Contains Business Logic
  */
 
+// Slf4j for logging messages on console
+@Slf4j
 @Service
 // Transactional annotation will sync changes with Database
 @Transactional
@@ -21,25 +25,36 @@ public class AssetServiceImpl implements AssetService {
     @Autowired
     private AssetRepo assetRepo;
 
-//    Saves asset to the database
+    //    Saves asset to the database
     @Override
     public Asset saveAsset(Asset asset) {
-        return assetRepo.save(asset);
+        if (asset.getName().length() > 0 && asset.getDescription().length() > 0 && asset.getPriceValue() > 0) {
+            return assetRepo.save(asset);
+        } else {
+            log.error("Error saving asset: {}", asset);
+            return asset;
+        }
     }
 
-//    fetches all assets from the database
+    //    fetches all assets from the database
     @Override
     public List<Asset> getAllAssets() {
         return assetRepo.findAll();
     }
 
-//    deletes an asset from the database
+    //    deletes an asset from the database
     @Override
     public void deleteAsset(Long assetId) {
-        assetRepo.deleteById(assetId);
+        Optional<Asset> asset = assetRepo.findById(assetId);
+        if (asset.isPresent()) {
+            assetRepo.deleteById(assetId);
+        } else {
+            log.error("Couldn't delete asset with id: {}, asset  with id: {} doesn't exist", assetId);
+        }
+
     }
 
-//    Updates Asset. Contains logic to update asset in this method/function
+    //    Updates Asset. Contains logic to update asset in this method/function
     @Override
     public void updateAsset(Long assetId,
                             String name,
